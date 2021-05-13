@@ -58,7 +58,7 @@
 
                             <!--Product Buttons-->
                             <div class="a-row">
-                                <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Update</nuxt-link>
+                                <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Edit</nuxt-link>
                                 <a @click="onDeleteProduct(product._id, index)" class="a-button-history margin-right-10">Delete</a>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ export default {
   // it is good for seo because the data will be loaded first
   async asyncData({ $axios }) {
       try{
-          let response = await $axios.$get("http://localhost:8000/api/products");
+          let response = await $axios.$get("products");
           return {
               products: response.products
           }
@@ -82,6 +82,19 @@ export default {
           console.log(e);
       }
   },
+  methods: {
+        async onDeleteProduct(id, index) {
+            try{
+                let response = await this.$axios.$delete(`products/${id}`);
+                if(response.status)
+                {
+                    this.products.splice(index, 1);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
 }
 </script>
 
