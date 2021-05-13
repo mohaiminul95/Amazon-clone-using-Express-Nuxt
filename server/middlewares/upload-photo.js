@@ -3,17 +3,20 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 
 aws.config.update({
-    secretAccessKey: process.env.secretAccessKey,
-    accessKeyId: process.env.accessKeyId
+    secretAccessKey: process.env.DO_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.DO_ACCESS_KEY_ID
 })
 
-// Set endpoint to AWS S3 Bucket
-const s3 = new aws.S3();
+// Set S3 endpoint to DigitalOcean Spaces
+const spacesEndpoint = new aws.Endpoint('https://sgp1.digitaloceanspaces.com');
+const s3 = new aws.S3({
+    endpoint: spacesEndpoint
+});
 
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'amazon-rabid',
+        bucket: 'technometrics/Dev_Purpose/rabid',
         acl: 'public-read',
         metadata: (req, file, cb) => {
             cb(null, { fieldName: file.fieldname });
