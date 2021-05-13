@@ -62,4 +62,30 @@ router.get("/products/:id", async (req, res) => {
     }
 });
 
+// put request - update a single products
+router.put("/products/:id", upload.single('photo'), async (req, res) => {
+    try{
+        let product = await Product.findOneAndUpdate({ _id: req.params.id }, {
+            $set: {
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price,
+                photo: req.file.location,
+                category: req.body.categoryID,
+                owner: req.body.OwnerID
+            }
+        }, { upsert: true }); // upsert: if dont find the data by id then create new data from sets
+        res.json({
+            status: true,
+            message: "Product updated successfully",
+            updateProduct: product
+        })
+    } catch (e) {
+        res.status(500).json({
+            success: false,
+            message: e.message
+        })
+    }
+});
+
 module.exports = router;
