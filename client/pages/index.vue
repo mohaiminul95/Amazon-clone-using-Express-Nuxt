@@ -122,15 +122,15 @@
     import FeaturedProduct from "~/components/FeaturedProduct";
     // import StarRating from "vue-star-rating";
     export default {
-        // async asyncData({ $axios }) {
-        //     try {
-        //         let response = await $axios.$get("/api/products");
-        //         return {
-        //             products: response.products
-        //         }
-        //     }catch (e) {
-        //     }
-        // },
+        async asyncData({ $axios }) {
+            try {
+                let response = await $axios.$get("products");
+                return {
+                    products: response.products
+                }
+            }catch (e) {
+            }
+        },
         components: {FeaturedProduct}
     }
 </script>
