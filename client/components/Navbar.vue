@@ -125,28 +125,21 @@
 </template>
 
 <script>
-    import Search from '~/components/Search';
-
-    export default {
-        components: {
-            Search
-        }
-    }
 
     // import { mapGetters } from "vuex";
-    // import Search from "~/components/Search";
-    // export default {
-    //     components: {Search},
+    import Search from "~/components/Search";
+    export default {
+        components: {Search},
     //     computed: {
     //         ...mapGetters(["getCartLength"])
     //     },
-    //     methods: {
-    //         async onLogout() {
-    //             await this.$auth.logout();
-    //             this.$router.push("/")
-    //         }
-    //     }
-    // }
+        methods: {
+            async onLogout() {
+                await this.$auth.logout();
+                this.$router.push("/")
+            }
+        }
+    }
 </script>
 
 <style scoped>
