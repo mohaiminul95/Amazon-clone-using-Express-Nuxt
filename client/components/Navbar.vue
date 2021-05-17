@@ -72,8 +72,16 @@
                                     </span>
                                 </span>
                             </a>
+                            
                             <span class="icp-nav-link-border"></span>
-                            <template>
+                            <template v-if="$auth.$state.loggedIn">
+                                <nuxt-link to="/profile" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
+                                    <span class="nav-line-1">Hello,</span>
+                                    <span class="nav-line-2">{{ $auth.$state.user.name }}</span>
+                                </span>
+                                </nuxt-link>
+                            </template>
+                            <template v-else>
                                 <nuxt-link to="/signup" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
                                     <span class="nav-line-1">Hello, Sign In</span>
                                     <span class="nav-line-2">
@@ -94,12 +102,20 @@
                                 <span class="nav-cart-icon nav-sprite"></span>
                                 <span id="nav-cart-count" aria-hidden="true" class="nav-cart-count nav-cart-0"></span>
                             </nuxt-link>
-                            <template >
+                            
+                            <template v-if="$auth.$state.loggedIn">
+                                <a href="#" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0" @click="onLogout">
+                                    <span class="nav-line-1"></span>
+                                    <span class="nav-line-2">Logout</span>
+                                </a>
+                            </template>
+                            <template v-else>
                                 <nuxt-link to="/login" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
                                     <span class="nav-line-1"></span>
                                     <span class="nav-line-2">Login</span>
                                 </nuxt-link>
                             </template>
+
                         </div>
                     </div>
                 </div>
