@@ -359,7 +359,7 @@
 </template>
 
 <script>
-    // import { mapActions } from "vuex";
+    import { mapActions } from "vuex";
     import ReviewSection from "~/components/ReviewSection";
     import StarRating from "vue-star-rating";
     export default {
@@ -378,7 +378,7 @@
             }
         },
         methods: {
-            // ...mapActions(["addProductToCart"])
+            ...mapActions(["addProductToCart"])
         }
     }
 </script>
