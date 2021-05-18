@@ -122,7 +122,7 @@
         },
         data() {
             return {
-                rating: 5,
+                rating: 0,
                 headline: "",
                 body: "",
                 selectedFile: null,

@@ -352,7 +352,7 @@
                     </div>
                 </div>
 
-                <!-- <ReviewSection :product="product" :reviews="reviews"/> -->
+                <ReviewSection :product="product" :reviews="reviews"/>
             </div>
         </div>
     </main>
@@ -360,18 +360,18 @@
 
 <script>
     // import { mapActions } from "vuex";
-    // import ReviewSection from "~/components/ReviewSection";
-    // import StarRating from "vue-star-rating";
+    import ReviewSection from "~/components/ReviewSection";
+    import StarRating from "vue-star-rating";
     export default {
-        // components: {ReviewSection, StarRating},
+        components: {ReviewSection, StarRating},
         async asyncData({ $axios, params }) {
             try{
                 let singleProduct = $axios.$get(`products/${ params.id }`);
-                // let manyReviews = $axios.$get(`reviews/${ params.id }`);
-                const [productResponse, reviewResponse] = await Promise.all([singleProduct]);
+                let manyReviews = $axios.$get(`reviews/${ params.id }`);
+                const [productResponse, reviewResponse] = await Promise.all([singleProduct,manyReviews]);
                 return{
                     product: productResponse.product,
-                    // reviews: reviewResponse.reviews
+                    reviews: reviewResponse.reviews
                 }
             } catch (e) {
                 console.log(e)
