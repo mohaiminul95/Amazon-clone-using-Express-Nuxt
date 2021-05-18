@@ -37,7 +37,31 @@ export const mutations = {
                 state.cartLength += product.quantity
             })
         }
-    }
+    },
+
+    /* 1. find the product in the cart
+       2. change the quantity of the cart
+       3. Update the length of the cart
+       4. replaced the old product with the updated product
+   */
+       changeQty(state, { product, qty }) {
+        // find the product in the cart
+        let cartProduct = state.cart.find(prod => prod._id === product._id);
+        // change the quantity of the cart
+        cartProduct.quantity = qty;
+
+        // Update the length of the cart
+        state.cartLength = 0;
+        if(state.cart.length > 0) {
+            state.cart.map(product => {
+                state.cartLength += product.quantity
+            })
+        }
+
+        // replaced the old product with the updated product
+        let indexOfProduct = state.cart.indexOf(cartProduct);
+        state.cart.splice(indexOfProduct, 1, cartProduct);
+    },
 }    
 
 export const getters = {
