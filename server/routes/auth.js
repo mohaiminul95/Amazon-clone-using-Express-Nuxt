@@ -38,14 +38,35 @@ router.post('/auth/signup', async (req, res) => {
 /* user Profile */
 router.get('/auth/user', verifyToken, async (req, res) => {
     try{
-        // let foundUser = await User.findOne({ _id: req.decoded._id }).populate("address").exec();
-        let foundUser = await User.findOne({ _id: req.decoded._id });
+        let foundUser = await User.findOne({ _id: req.decoded._id }).populate("address").exec();
         if(foundUser) {
             res.json({
                 success: true,
                 user: foundUser
             })
         }
+    } catch (e) {
+        res.status(500).json({
+            success: false,
+            message: e.message
+        })
+    }
+})
+
+/* update profile */
+router.put('/auth/user', verifyToken, async (req, res) => {
+    try{
+        let foundUser = {};
+        if(req.body.name) foundUser.name = req.body.name;
+        if(req.body.email) foundUser.email = req.body.email;
+        if(req.body.password) foundUser.password = req.body.password;
+
+        await User.findOneAndUpdate({ _id: req.decoded._id }, { $set: foundUser }, { upsert: false });
+        // upsert: if dont find the data by id then create new data from sets
+        res.json({
+            success: true,
+            message: "Profile updated"
+        });
     } catch (e) {
         res.status(500).json({
             success: false,
