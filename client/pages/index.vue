@@ -120,7 +120,7 @@
 
 <script>
     import FeaturedProduct from "~/components/FeaturedProduct";
-    // import StarRating from "vue-star-rating";
+    import StarRating from "vue-star-rating";
     export default {
         async asyncData({ $axios }) {
             try {
@@ -131,7 +131,7 @@
             }catch (e) {
             }
         },
-        components: {FeaturedProduct}
+        components: {FeaturedProduct, StarRating}
     }
 </script>
 
