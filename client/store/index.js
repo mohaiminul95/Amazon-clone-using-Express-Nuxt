@@ -1,20 +1,21 @@
-export const state= () => ({
+export const state = () => ({
+    //    state
     cart: [],
-    cartLength: 0
+    cartLength: 0,
+    shippingPrice: 0,
+    estimatedDelivery: ""
 })
 
-export const actions= {
+export const actions = {
     addProductToCart({state, commit}, product) {
-        const cartProduct= state.cart.find(prod => prod._id === product._id);
+        const cartProduct = state.cart.find(prod => prod._id === product.id);
 
-        if(!cartProduct) {
-            commit('pushProductToCart', product)
-        } else {
-            commit('incrementProductQty', cartProduct)
-        }
+        if(!cartProduct)
+            commit("pushProductToCart", product);
+        else
+            commit("incrementProductQty", cartProduct);
 
-        commit('incrementCartLength')
-
+        commit("incrementCartLength")
     }
 }
 
@@ -44,7 +45,7 @@ export const mutations = {
        3. Update the length of the cart
        4. replaced the old product with the updated product
    */
-       changeQty(state, { product, qty }) {
+    changeQty(state, { product, qty }) {
         // find the product in the cart
         let cartProduct = state.cart.find(prod => prod._id === product._id);
         // change the quantity of the cart
@@ -67,12 +68,24 @@ export const mutations = {
        2. get the index of the product that we want to delete
        3. remove the product
    */
-       removeProduct(state, product) {
+    removeProduct(state, product) {
         state.cartLength -= product.quantity;
         let indexOfProduct = state.cart.indexOf(product);
         state.cart.splice(indexOfProduct, 1);
     },
-}    
+
+    setShipping(state, { price, estimatedDelivery }) {
+        state.shippingPrice = price;
+        state.estimatedDelivery = estimatedDelivery;
+    },
+
+    clearCart(state) {
+        state.cart = [];
+        state.cartLength = 0;
+        state.shippingPrice = 0;
+        state.estimatedDelivery = "";
+    }
+}
 
 export const getters = {
     getCartLength(state) {
@@ -90,4 +103,16 @@ export const getters = {
         })
         return total;
     },
+
+    getCartTotalPriceWithShipping(state) {
+        let total = 0;
+        state.cart.map(product => {
+            total += product.price * product.quantity
+        })
+        return total + state.shippingPrice;
+    },
+
+    getEstimatedDelivery(state) {
+        return state.estimatedDelivery;
+    }
 }

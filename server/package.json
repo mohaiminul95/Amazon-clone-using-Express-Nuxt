@@ -18,6 +18,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.8",
     "mongoose-algolia": "^1.10.1",
     "morgan": "^1.10.0",
