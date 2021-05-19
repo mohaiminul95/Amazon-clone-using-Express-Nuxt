@@ -122,7 +122,7 @@
                   <div>
                     <span class="a-spacing-small a-button-primary a-button-icon">
                       <span class="a-button-inner">
-                        <a href="#" class="a-button-text">Proceed to checkout</a>
+                        <nuxt-link to="/placeorder" class="a-button-text">Proceed to checkout</nuxt-link>
                       </span>
                     </span>
                   </div>
